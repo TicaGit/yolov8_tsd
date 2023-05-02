@@ -177,6 +177,8 @@ class LoadImages:
             path = Path(path).read_text().rsplit()
         files = []
         for p in sorted(path) if isinstance(path, (list, tuple)) else [path]:
+            data_dir = "/work/vita/nmuenger_trinca/annotations_reduced/"
+            p =  data_dir + p
             p = str(Path(p).resolve())
             if '*' in p:
                 files.extend(sorted(glob.glob(p, recursive=True)))  # glob
