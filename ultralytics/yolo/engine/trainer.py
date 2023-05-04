@@ -245,6 +245,7 @@ class BaseTrainer:
         self.stopper, self.stop = EarlyStopping(patience=self.args.patience), False
 
         # dataloaders
+        breakpoint()
         batch_size = self.batch_size // world_size if world_size > 1 else self.batch_size
         self.train_loader = self.get_dataloader(self.trainset, batch_size=batch_size, rank=RANK, mode='train')
         if RANK in (-1, 0):
@@ -264,6 +265,7 @@ class BaseTrainer:
             self._setup_ddp(world_size)
 
         self._setup_train(world_size)
+        breakpoint()
 
         self.epoch_time = None
         self.epoch_time_start = time.time()

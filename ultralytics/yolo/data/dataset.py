@@ -73,12 +73,14 @@ class YOLODataset(BaseDataset):
         Returns:
             (dict): labels.
         """
+        breakpoint()
         x = {'labels': []}
         nm, nf, ne, nc, msgs = 0, 0, 0, 0, []  # number missing, found, empty, corrupt, messages
         desc = f'{self.prefix}Scanning {path.parent / path.stem}...'
         total = len(self.im_files)
         nc = len(self.data['names'])
         nkpt, ndim = self.data.get('kpt_shape', (0, 0))
+        breakpoint()
         if self.use_keypoints and (nkpt <= 0 or ndim not in (2, 3)):
             raise ValueError("'kpt_shape' in data.yaml missing or incorrect. Should be a list with [number of "
                              "keypoints, number of dims (2 for x,y or 3 for x,y,visible)], i.e. 'kpt_shape: [17, 3]'")
@@ -108,7 +110,7 @@ class YOLODataset(BaseDataset):
                     msgs.append(msg)
                 pbar.desc = f'{desc} {nf} images, {nm + ne} backgrounds, {nc} corrupt'
             pbar.close()
-
+        breakpoint()
         if msgs:
             LOGGER.info('\n'.join(msgs))
         if nf == 0:
@@ -129,7 +131,8 @@ class YOLODataset(BaseDataset):
 
     def get_labels(self):
         self.label_files = img2label_paths(self.im_files)
-        cache_path = Path(self.label_files[0]).parent.with_suffix('.cache')
+        cache_path = Path(self.label_files[0]).parent.parent.with_suffix('.cache')
+        breakpoint()
         try:
             import gc
             gc.disable()  # reduce pickle load time https://github.com/ultralytics/ultralytics/pull/1585

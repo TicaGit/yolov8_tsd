@@ -176,9 +176,11 @@ class LoadImages:
         if isinstance(path, str) and Path(path).suffix == '.txt':  # *.txt file with img/vid/dir on each line
             path = Path(path).read_text().rsplit()
         files = []
+        data_dir = "/work/vita/nmuenger_trinca/annotations_reduced/"
         for p in sorted(path) if isinstance(path, (list, tuple)) else [path]:
-            data_dir = "/work/vita/nmuenger_trinca/annotations_reduced/"
-            p =  data_dir + p
+            #need this check because model try with 1 image always
+            if p != "/home/trinca/code/dlav_yolov8/yolov8_tsd/ultralytics/assets/bus.jpg":
+                p =  data_dir + p
             p = str(Path(p).resolve())
             if '*' in p:
                 files.extend(sorted(glob.glob(p, recursive=True)))  # glob
