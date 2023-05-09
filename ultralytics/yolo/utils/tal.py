@@ -130,6 +130,8 @@ class TaskAlignedAssigner(nn.Module):
         ind[0] = torch.arange(end=self.bs).view(-1, 1).repeat(1, self.n_max_boxes)  # b, max_num_obj
         ind[1] = gt_labels.long().squeeze(-1)  # b, max_num_obj
         # get the scores of each grid for each gt cls
+        # print("mask: ",mask_gt)
+        # print("gt label:", ind[1])
         bbox_scores[mask_gt] = pd_scores[ind[0], :, ind[1]][mask_gt]  # b, max_num_obj, h*w
 
         # (b, max_num_obj, 1, 4), (b, 1, h*w, 4)

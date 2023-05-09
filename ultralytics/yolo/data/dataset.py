@@ -73,7 +73,6 @@ class YOLODataset(BaseDataset):
         Returns:
             (dict): labels.
         """
-        breakpoint()
         x = {'labels': []}
         nm, nf, ne, nc, msgs = 0, 0, 0, 0, []  # number missing, found, empty, corrupt, messages
         desc = f'{self.prefix}Scanning {path.parent / path.stem}...'
@@ -109,7 +108,6 @@ class YOLODataset(BaseDataset):
                     msgs.append(msg)
                 pbar.desc = f'{desc} {nf} images, {nm + ne} backgrounds, {nc} corrupt'
             pbar.close()
-        breakpoint()
         if msgs:
             LOGGER.info('\n'.join(msgs))
         if nf == 0:
@@ -131,7 +129,6 @@ class YOLODataset(BaseDataset):
     def get_labels(self):
         self.label_files = img2label_paths(self.im_files)
         cache_path = Path(self.label_files[0]).parent.parent.with_suffix('.cache')
-        breakpoint()
         try:
             import gc
             gc.disable()  # reduce pickle load time https://github.com/ultralytics/ultralytics/pull/1585
