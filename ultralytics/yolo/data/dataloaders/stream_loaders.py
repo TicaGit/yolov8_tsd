@@ -179,7 +179,9 @@ class LoadImages:
         data_dir = "/work/vita/nmuenger_trinca/annotations/"
         for p in sorted(path) if isinstance(path, (list, tuple)) else [path]:
             #need this check because model try with 1 image always
-            if p != os.getcwdb() + "/ultralytics/assets/bus.jpg":
+            cur_path = str(os.getcwd())
+            print(cur_path)
+            if p !=  cur_path+ "/ultralytics/assets/bus.jpg":
                 p =  data_dir + p
             p = str(Path(p).resolve())
             if '*' in p:
