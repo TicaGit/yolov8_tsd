@@ -25,7 +25,6 @@ class DetectionTrainer(BaseTrainer):
         # TODO: manage splits differently
         # calculate stride - check if model is initialized
         gs = max(int(de_parallel(self.model).stride.max() if self.model else 0), 32)
-        breakpoint() #probleme here
         return create_dataloader(path=dataset_path,
                                  imgsz=self.args.imgsz,
                                  batch_size=batch_size,
