@@ -245,8 +245,8 @@ class BaseTrainer:
         self.stopper, self.stop = EarlyStopping(patience=self.args.patience), False
 
         # dataloaders
-        breakpoint()
         batch_size = self.batch_size // world_size if world_size > 1 else self.batch_size
+
         self.train_loader = self.get_dataloader(self.trainset, batch_size=batch_size, rank=RANK, mode='train')
         if RANK in (-1, 0):
             self.test_loader = self.get_dataloader(self.testset, batch_size=batch_size * 2, rank=-1, mode='val')

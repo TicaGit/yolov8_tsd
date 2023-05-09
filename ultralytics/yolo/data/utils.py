@@ -23,7 +23,7 @@ from ultralytics.yolo.utils.downloads import download, safe_download, unzip_file
 from ultralytics.yolo.utils.ops import segments2boxes
 
 HELP_URL = 'See https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data'
-IMG_FORMATS = 'bmp', 'dng', 'jpeg', 'jpg', 'mpo', 'png', 'tif', 'tiff', 'webp', 'pfm', 'jp2'  # image suffixes
+IMG_FORMATS = 'bmp', 'dng', 'jpeg', 'jpg', 'mpo', 'png', 'tif', 'tiff', 'webp', 'pfm', 'jp2', 'jpeg2000'  # image suffixes
 VID_FORMATS = 'asf', 'avi', 'gif', 'm4v', 'mkv', 'mov', 'mp4', 'mpeg', 'mpg', 'ts', 'wmv', 'webm'  # video suffixes
 PIN_MEMORY = str(os.getenv('PIN_MEMORY', True)).lower() == 'true'  # global pin_memory for dataloaders
 IMAGENET_MEAN = 0.485, 0.456, 0.406  # RGB mean
@@ -39,7 +39,7 @@ def img2label_paths(img_paths):
     # Define label paths as a function of image paths
     breakpoint() #here is images instead of label
     #sa, sb = f'{os.sep}images{os.sep}', f'{os.sep}labels{os.sep}'  # /images/, /labels/ substrings
-    sa, sb = f'images{os.sep}', f'labels{os.sep}'  # /images/, /labels/ substrings
+    sa, sb = f'images{os.sep}', f'labels{os.sep}'  # images/, labels/ substrings
     ret = [sb.join(x.rsplit(sa, 1)).rsplit('.', 1)[0] + '.txt' for x in img_paths]
     return ret
 
@@ -74,8 +74,8 @@ def verify_image_label(args):
         shape = exif_size(im)  # image size
         shape = (shape[1], shape[0])  # hw
         assert (shape[0] > 9) & (shape[1] > 9), f'image size {shape} <10 pixels'
+        #breakpoint()
         assert im.format.lower() in IMG_FORMATS, f'invalid image format {im.format}'
-        breakpoint()
         if im.format.lower() in ('jpg', 'jpeg'):
             with open(im_file, 'rb') as f:
                 f.seek(-2, 2)

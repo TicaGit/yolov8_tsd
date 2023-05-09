@@ -159,7 +159,7 @@ TASK_MAP = {
         ClassificationModel, yolo.v8.classify.ClassificationTrainer, yolo.v8.classify.ClassificationValidator,
         yolo.v8.classify.ClassificationPredictor],
     'detect': [
-        DetectionModel, DetectionTrainerCustom, yolo.v8.detect.DetectionValidator,
+        DetectionModel, DetectionTrainerCustom, yolo.v8.detect.DetectionValidator, #custom trainer
         yolo.v8.detect.DetectionPredictor],
 }
 
@@ -198,13 +198,12 @@ class YOLOCustom(YOLO):
             overrides['resume'] = self.ckpt_path
     
         self.task = overrides.get('task') or self.task
-        self.trainer = TASK_MAP[self.task][1](overrides=overrides)
+        self.trainer = TASK_MAP[self.task][1](overrides=overrides) #NEED HERE TO REDIFINE THE TRAINER
         if not overrides.get('resume'):  # manually set model only if not resuming
             #load the pretrained weights and model with requ_grad = True
             self.trainer.model = self.trainer.get_model(weights=self.model if self.ckpt else None, cfg=self.model.yaml)
             self.model = self.trainer.model
         self.trainer.hub_session = self.session  # attach optional HUB session
-        #breakpoint()
         self.trainer.train()
         # update model and cfg after training
         if RANK in (-1, 0):
@@ -221,11 +220,12 @@ if __name__ == "__main__":
     model = YOLOCustom('yolov8n.pt') #pretrained
 
     # data_folder = "/work/nmuenger_trinca/annotations/" #real
-    data_folder = "/work/vita/nmuenger_trinca/annotations_reduced/" #for tests
+    #data_folder = "/work/vita/nmuenger_trinca/annotations_reduced/" #for tests
     #in yolo data dataloader stream loader l.180 : added this dir (hardcoded) :(
 
     #NEED to test with data side to model (also slooooow ?)
 
+    #---PREDICTIONS---
     #pred = model(data_folder + "train.txt") #file that say where the images are
     #print(pred)
     #print(pred[0].boxes.cls)
@@ -234,4 +234,4 @@ if __name__ == "__main__":
 
     #check if everythink is on gpu : YES yolo/engine/trainer.py l171
 
-    model.train(data = "tsr_dataset.yaml")
+    model.train(data = "tsr_dataset.yaml", epochs=3)

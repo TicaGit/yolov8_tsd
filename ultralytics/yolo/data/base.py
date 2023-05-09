@@ -81,7 +81,8 @@ class BaseDataset(Dataset):
                     with open(p) as t:
                         t = t.read().strip().splitlines()
                         parent = str(p.parent) + os.sep
-                        f += [x.replace('./', parent) if x.startswith('./') else x for x in t]  # local to global path
+                        f += [parent + x for x in t]
+                        #f += [x.replace('./', parent) if x.startswith('./') else x for x in t]  # local to global path
                         # f += [p.parent / x.lstrip(os.sep) for x in t]  # local to global path (pathlib)
                 else:
                     raise FileNotFoundError(f'{self.prefix}{p} does not exist')
