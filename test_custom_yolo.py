@@ -12,10 +12,10 @@ class YOLO_custom(YOLO):
 #model = YOLO("yolov8n.yaml") #from scratch
 model = YOLO('yolov8n.pt') #pretrained
 
-pred = model("data_ours/data")
+# pred = model("data_ours/data")
 
-print(pred[0].boxes.cls)
-print(pred[0].boxes.xywhn)
+# print(pred[0].boxes.cls)
+# print(pred[0].boxes.xywhn)
 
 #model.model.backbone
 
@@ -24,9 +24,16 @@ print(pred[0].boxes.xywhn)
 #    print(t)
    #print(m)
 print("____________")
+BACKBONE = 9
 for name, param in model.model.named_parameters():
-    param.requires_grad = False
+    layer = int(name.split(".")[1])
+    print(layer)
+    if layer <= BACKBONE:
+        param.requires_grad = False
+    else:
+        param.requires_grad = True
     print(name, param.size(), param.requires_grad)
+
 
 #training
 #model.train(data="coco128.yaml", epochs=1)  # train the model
