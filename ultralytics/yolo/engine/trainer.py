@@ -265,7 +265,6 @@ class BaseTrainer:
             self._setup_ddp(world_size)
 
         self._setup_train(world_size)
-        breakpoint()
 
         self.epoch_time = None
         self.epoch_time_start = time.time()

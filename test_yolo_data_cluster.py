@@ -60,6 +60,11 @@ class DetectionTrainerCustom(yolo.v8.detect.DetectionTrainer):
                 param.requires_grad = False
                 print(f"param {name} has requ_grad : {param.requires_grad}")
 
+        #FIX LR (10times smaller than final lr) :  + sont call lr_sceduler
+        for g in self.optimizer.param_groups:
+            g['lr'] = 1e-5
+        
+        #training loop
         for epoch in range(self.start_epoch, self.epochs):
             self.epoch = epoch
             self.run_callbacks('on_train_epoch_start')
@@ -145,7 +150,7 @@ class DetectionTrainerCustom(yolo.v8.detect.DetectionTrainer):
 
             self.lr = {f'lr/pg{ir}': x['lr'] for ir, x in enumerate(self.optimizer.param_groups)}  # for loggers
 
-            self.scheduler.step()
+            #self.scheduler.step() #don't change lr
             self.run_callbacks('on_train_epoch_end')
 
             if RANK in (-1, 0):
