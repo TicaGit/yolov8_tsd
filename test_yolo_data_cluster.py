@@ -7,7 +7,7 @@ from ultralytics.yolo.utils.checks import check_file, check_imgsz, check_pip_upd
 from ultralytics.nn.tasks import (ClassificationModel, DetectionModel, attempt_load_one_weight)
 
 
-
+import argparse
 import time
 from tqdm import tqdm
 import numpy as np
@@ -65,19 +65,21 @@ class DetectionTrainerCustom(yolo.v8.detect.DetectionTrainer):
             g['lr'] = 1e-5
         
         #training loop
-        for epoch in range(self.start_epoch, self.epochs):
+        for epoch in range(0, self.epochs):
             self.epoch = epoch
             self.run_callbacks('on_train_epoch_start')
             self.model.train()
 
             #unfreeze some layers
-            if epoch == 1:
+            if epoch == self.epochs//3:
+                print("unfreeze head1 at ", epoch)
                 for name, param in model.model.named_parameters():
                     layer_num = int(name.split(".")[1])
                     if layer_num in HEAD_FIRST:
                         param.requires_grad = True
                         print(f"param {name} has requ_grad : {param.requires_grad}")
-            if epoch == 2:
+            if epoch == self.epochs//3*2:
+                print("unfreeze beackbone at ", epoch)
                 for name, param in model.model.named_parameters():
                     layer_num = int(name.split(".")[1])
                     if layer_num in BACKBONE:
@@ -259,8 +261,23 @@ class YOLOCustom(YOLO):
 
 
 if __name__ == "__main__":
-    print("loading yoloo")
-    model = YOLOCustom('yolov8n.pt') #pretrained
+
+    #parse args
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--model', default='yolov8n.pt',
+                        choices=('yolov8n.pt', 'yolov8m.pt', 'yolov8x.pt'),
+                            help='sze of model to use')
+    parser.add_argument('--epochs', default=3, type=int,
+                                 help='number of epochs')
+    args = parser.parse_args()
+
+
+    model = args.model
+    print("loading yolo, model: ", model)
+
+    model = YOLOCustom('trained_models/' + model) #pretrained
+
+    
 
     # data_folder = "/work/nmuenger_trinca/annotations/" #real
     #data_folder = "/work/vita/nmuenger_trinca/annotations_reduced/" #for tests
@@ -277,4 +294,4 @@ if __name__ == "__main__":
 
     #check if everythink is on gpu : YES yolo/engine/trainer.py l171
 
-    model.train(data = "tsr_dataset.yaml", epochs=3)
+    model.train(data = "tsr_dataset.yaml", epochs=args.epochs)
