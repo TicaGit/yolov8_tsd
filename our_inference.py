@@ -15,13 +15,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_path', default='our_retrained_models/yolov8n_tsd.pt',
                             help='path of the model')
-    parser.add_argument('--data_path', default="",
+    parser.add_argument('--data_path', default="/work/vita/nmuenger_trinca/annotations/",
                             help='path of the data')
     parser.add_argument('--output_file', default="prediction.txt",
                         help='path to store the output predictions')
     args = parser.parse_args()
 
     model = YOLOCustom(model = args.model_path)
-    preds = model(args.data_path + "train.txt")
+    preds = model(args.data_path + "test.txt")
     write(preds, args.output_file)
     print("prediction done, stroed at {args.data_path}")
