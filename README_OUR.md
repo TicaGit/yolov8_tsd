@@ -8,4 +8,7 @@ data in /work/vita/...
 
 use val function of yolo for evaluate performanace of models 
 
+if other data loc, change path in streamloader.py : data_dir = "/work/vita/nmuenger_trinca/annotations/"
+
+
 

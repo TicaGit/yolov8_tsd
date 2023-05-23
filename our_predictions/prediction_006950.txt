@@ -1,0 +1,2 @@
+img_path,speed,class_id,class_name,x_box,y_box,w_box,h_box
+/work/vita/nmuenger_trinca/annotations/images/01/image.006950.jp2,124140.86127281189,154.0,F50.png,1123.01171875,242.78857421875,55.4954833984375,58.03515625

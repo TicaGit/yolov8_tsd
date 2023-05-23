@@ -54,15 +54,15 @@ class DetectionTrainerCustom(yolo.v8.detect.DetectionTrainer):
         HEAD_FIRST = [12, 15]
         HEAD_SECOND = [16, 18, 19, 21]
         #freeze backbone and first part of head
-        for name, param in model.model.named_parameters():
+        for name, param in self.model.named_parameters():
             layer_num = int(name.split(".")[1])
             if layer_num in BACKBONE or layer_num in HEAD_FIRST:
                 param.requires_grad = False
                 print(f"param {name} has requ_grad : {param.requires_grad}")
 
-        #FIX LR (10times smaller than final lr) :  + sont call lr_sceduler
+        #FIX LR (2times smaller than final lr) :  + dont call lr_sceduler
         for g in self.optimizer.param_groups:
-            g['lr'] = 1e-5
+            g['lr'] = 5e-5
         
         #training loop
         for epoch in range(0, self.epochs):
@@ -70,21 +70,28 @@ class DetectionTrainerCustom(yolo.v8.detect.DetectionTrainer):
             self.run_callbacks('on_train_epoch_start')
             self.model.train()
 
+            #reduce lr
+            if epoch == self.epochs//6:
+                print("reduce lr to 1e-5")
+                for g in self.optimizer.param_groups:
+                    g['lr'] = 1e-5
+
             #unfreeze some layers
             if epoch == self.epochs//3:
                 print("unfreeze head1 at ", epoch)
-                for name, param in model.model.named_parameters():
+                for name, param in self.model.named_parameters():
                     layer_num = int(name.split(".")[1])
                     if layer_num in HEAD_FIRST:
                         param.requires_grad = True
                         print(f"param {name} has requ_grad : {param.requires_grad}")
-            if epoch == self.epochs//3*2:
-                print("unfreeze beackbone at ", epoch)
-                for name, param in model.model.named_parameters():
-                    layer_num = int(name.split(".")[1])
-                    if layer_num in BACKBONE:
-                        param.requires_grad = True
-                        print(f"param {name} has requ_grad : {param.requires_grad}")
+            # dont touh backbone : gives worse results
+            # if epoch == self.epochs//3*2:
+            #     print("unfreeze beackbone at ", epoch)
+            #     for name, param in self.model.named_parameters():
+            #         layer_num = int(name.split(".")[1])
+            #         if layer_num in BACKBONE:
+            #             param.requires_grad = True
+            #             print(f"param {name} has requ_grad : {param.requires_grad}")
                 
 
 
@@ -266,7 +273,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', default='yolov8n.pt',
                         choices=('yolov8n.pt', 'yolov8m.pt', 'yolov8x.pt'),
-                            help='sze of model to use')
+                            help='size of model to use')
     parser.add_argument('--epochs', default=3, type=int,
                                  help='number of epochs')
     args = parser.parse_args()
