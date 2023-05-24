@@ -16,11 +16,11 @@ if __name__ == "__main__":
 
     #parse args
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_path', default='yolov8n_tsd_30epochs.pt',
+    parser.add_argument('--model_path', default='yolov8m_tsd_30epochs.pt',
                             help='path of the model')
-    parser.add_argument('--data_path', default="images/01/image.006950.jp2/work/vita/nmuenger_trinca/annotations/",
+    parser.add_argument('--data_path', default="images/01/image.006950.jp2",
                             help='path of the data')
-    parser.add_argument('--output_file', default="our_predictions/prediction_006950.txt",
+    parser.add_argument('--output_file', default="our_predictions/prediction_006950_m.txt",
                         help='path to store the output predictions')
     args = parser.parse_args()
 
