@@ -71,7 +71,7 @@ class DetectionTrainerCustom(yolo.v8.detect.DetectionTrainer):
             self.model.train()
 
             #reduce lr
-            if epoch == self.epochs//6:
+            if epoch == self.epochs//3*2:
                 print("reduce lr to 1e-5")
                 for g in self.optimizer.param_groups:
                     g['lr'] = 1e-5
