@@ -13,6 +13,12 @@ use val function of yolo for evaluate performanace of models
 
 if other data loc, change path in streamloader.py : data_dir = "/work/vita/nmuenger_trinca/annotations/"
 
+The defined traffic signs are given in the image below.
+
+<p align="center">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/defined_sign.png" width="400">
+</p>
+
 
 
 
