@@ -66,11 +66,25 @@ We also provided a test script to compare the performances of the models' differ
 
 We discovered that not all the sign of the BelgianTS dataset were labeled (see example below). During training, if the network correctly identifies a sign that was not labelled, it is told that it is wrong. We think that this is the reason we didn't get better results, as the yolov8 network is the state-of-the-art and finetuning it should keep the performances high. 
 
+Inference with the Nano model 
+<p align="center">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/pred_n.png" width="400">
+</p>
+
+Inference with the Medium model
+<p align="center">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/pred_m.png" width="400">
+</p>
+
+Inference with the Extra Large model
+<p align="center">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/pred_x.png" width="400">
+</p>
 
 ### Table with the class names 
 
 <p align="center">
-<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/defined_sign.png" width="400">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/defined_sign.png" width="400">
 </p>
 
 
