@@ -32,6 +32,8 @@ data are in scitas
 
 say wich sign corespond to which class name
 
+The defined traffic signs are given in the image at the end of the readme.
+
 ### models:
 
 Before everything, one must first download the models from google drive and put them in the correct files.  
@@ -62,6 +64,10 @@ python our_inference.py --model_path yolov8m_tsd_30epochs.pt --data_path images/
 ### testing:
 
 change in the yaml file
+
+<p align="center">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/defined_sign.png" width="400">
+</p>
 
 
 
