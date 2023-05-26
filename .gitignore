@@ -160,3 +160,6 @@ core.13798
 
 trained_models/
 our_retrained_models/
+
+#don't ignore yalm files
+!ultralytics/datasets/
