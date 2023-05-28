@@ -24,22 +24,22 @@ ultralytics
 ```
 
 
-### data:
+### Data:
 
-Our code is designed work on the scitas clusters. It fetches all the image data from the folder /work/vita/nmuenger_trinca/annotations/. In this folder there are .txt files which indicates the relative path to all the images from a set (the training set for example). As the original yolov8 model expected the data to be located in another folder, the path "/work/vita/nmuenger_trinca/annotations/" is hardcoded in the ultralytics\yolo\data\dataloaders\stream_loaders.py file, line 179. This path is also specified in the .yaml file (named *tsr_dataset_yaml*), where we specify how the dataset should be read.
+Our code is designed to work on the SCITAS clusters. It fetches all the image data from the folder /work/vita/nmuenger_trinca/annotations/. In this folder there are .txt files which indicates the relative path to all the images from a set (the training set for example). As the original yolov8 model expected the data to be located in another folder, the path "/work/vita/nmuenger_trinca/annotations/" is hardcoded in the ultralytics\yolo\data\dataloaders\stream_loaders.py file, line 179. This path is also specified in the .yaml file (named *tsr_dataset_yaml*), where we specify how the dataset should be read. <br>
 The BelgianTS dataset contains 210 classes of traffic signs. The defined traffic signs are given in the image at the end of the readme. <br>
-For an in-depth explanation of the data format YOLO expects, please refer to this description [test]https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data .
+For an in-depth explanation of the data format YOLO expects, please refer to this [description](https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data). 
 
-### models:
+### Models:
 
-Before everything, one must first download the models from google drive and put them in the correct files. The link is : https://drive.google.com/drive/folders/1r6YhmoF5XZMKCcJ15O63RUL7nu7NAXp6?usp=sharing. 
-There are two kinds of models. The models pretrained by the Ultralytics team on the coco dataset (Pretrained-Ultralytics) and our models which we finetuned on the BelgiumTS dataset (42-epochs). Both kinds comes with 3 different sizes : nano, medium and x-tra large, with increasing performances.
+Before anything, one must first download the models from google drive (https://drive.google.com/drive/folders/1r6YhmoF5XZMKCcJ15O63RUL7nu7NAXp6?usp=sharing) and put them in the correct files. <br> 
+There are two kinds of models. The models pretrained by the Ultralytics team on the COCO dataset (Pretrained-Ultralytics) and our models which we finetuned on the BelgiumTS dataset (42-epochs). Both kind come with 3 different sizes : nano, medium and x-tra large, with performances increasing with model size.
 
 The pretrained models must first be trained with our training script. Our finetuned models can directly be used for inference. 
 
 The pretrained models form ultralytics must be placed in the *trained_models* folder and our finetuned models in the *our_retrained_models* folder.
 
-### training:
+### Training:
 
 The script to train the network is called our_train.py. One can run it with this command, specifying the model to use and the number of epochs. The model to train must be in the *trained_models* folder.
 ```
@@ -47,7 +47,7 @@ python our_train.py --model yolov8m.pt --epochs 3
 ```
 The model trained and some training metrics are then stored in the *run/detect* folder.
 
-### inference:
+### Inference:
 
 To infer the bounding boxes and classes of an image, we use the *our_inference.py* script. One can specify the model to use, the path to the image (wich must be in the same folder as the path specified in the .yaml file) and the file to output the predictions. An example command is provided below.
 
@@ -57,12 +57,12 @@ python our_inference.py --model_path yolov8m_tsd_30epochs.pt --data_path images/
 
 This will create the file *prediction.txt* file in the folder *our_predictions* and store all the bounding boxes file in a csv format. The inference time on the image is also displayed.
 
-### testing:
+### Testing:
 
-We also provided a test script to compare the performances of the models' different size on the whole testset. This script outputs all the results in the terminal and create a plot comparing the performances.
+We also provide a test script to compare the performances of the models' different sizes on the whole test set. This script outputs all the results in the terminal and create a plot comparing the performances.
 
 
-### disclaimer:
+### Disclaimer:
 
 We discovered that not all the sign of the BelgianTS dataset were labeled (see example below). During training, if the network correctly identifies a sign that was not labelled, it is told that it is wrong. We think that this is the reason we didn't get better results, as the yolov8 network is the state-of-the-art and finetuning it should keep the performances high. 
 
