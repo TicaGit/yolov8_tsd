@@ -27,8 +27,8 @@ ultralytics
 ### data:
 
 Our code is designed work on the scitas clusters. It fetches all the image data from the folder /work/vita/nmuenger_trinca/annotations/. In this folder there are .txt files which indicates the relative path to all the images from a set (the training set for example). As the original yolov8 model expected the data to be located in another folder, the path "/work/vita/nmuenger_trinca/annotations/" is hardcoded in the ultralytics\yolo\data\dataloaders\stream_loaders.py file, line 179. This path is also specified in the .yaml file (named *tsr_dataset_yaml*), where we specify how the dataset should be read.
-
-The BelgianTS dataset contains 210 classes of traffic signs. The defined traffic signs are given in the image at the end of the readme.
+The BelgianTS dataset contains 210 classes of traffic signs. The defined traffic signs are given in the image at the end of the readme. <br>
+For an in-depth explanation of the data format YOLO expects, please refer to this description [test]https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data .
 
 ### models:
 
