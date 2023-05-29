@@ -32,7 +32,7 @@ For an in-depth explanation of the data format YOLO expects, please refer to thi
 
 ### Models:
 
-Before anything, one must first download the models from google drive (https://drive.google.com/drive/folders/1r6YhmoF5XZMKCcJ15O63RUL7nu7NAXp6?usp=sharing) and put them in the correct files. <br> 
+Before anything, one must first download the models from google drive (https://drive.google.com/drive/folders/1r6YhmoF5XZMKCcJ15O63RUL7nu7NAXp6?usp=sharing) and put them in the correct files. Note that the raw pretrained models can also be downloaded on https://github.com/ultralytics/assets/releases.<br> 
 There are two kinds of models. The models pretrained by the Ultralytics team on the COCO dataset (Pretrained-Ultralytics) and our models which we finetuned on the BelgiumTS dataset (42-epochs). Both kind come with 3 different sizes : nano, medium and x-tra large, with performances increasing with model size.
 
 The pretrained models must first be trained with our training script. Our finetuned models can directly be used for inference. 
@@ -96,22 +96,22 @@ As an example, we selected an image with multiple signs to detect, and infered t
 
 Ground truth 
 <p align="center">
-<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/            /.png" width="400">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/            /.png" width="800">
 </p>
 
 Inference with the Nano model 
 <p align="center">
-<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/.png" width="400">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/Pred_n.png" width="800">
 </p>
 
 Inference with the Medium model
 <p align="center">
-<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/Pred_m.png" width="400">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/Pred_m.png" width="800">
 </p>
 
 Inference with the Extra Large model
 <p align="center">
-<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/Pred_x.png" width="400">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/Pred_x.png" width="800">
 </p>
 
 Comparion of inference time on one image.
