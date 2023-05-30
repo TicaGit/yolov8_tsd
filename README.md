@@ -82,7 +82,13 @@ The image below displays a visualisation of this problem. This picture was autom
 
 ### Results :
 
-Our project goal was to retrain yolov8 and finetune it on the BelgianTS dataset. We obtain our best results with the following method. For 14 epochs, we trained only the last part of the detection head (modules 16, 18, 19 & 21). Then we unfreezed the rest of the head (modules 12 & 15) and continued the training for 14 epochs. We found out on a previous training that unfreezing the backbone led to a drop in performance. Thus, we decided to keep it frozen and not retrain it, but we did finetune the whole head for another 14 epochs. The architecture of yolov8 and the modules' numbers are shown on the image below. 
+Our project goal was to retrain yolov8 and finetune it on the BelgianTS dataset. We obtain our best results with the following method. For 14 epochs, we trained only the last part of the detection head (modules 16, 18, 19 & 21). Then we unfreezed the rest of the head (modules 12 & 15) and continued the training for 14 epochs. We found out on a previous training that unfreezing the backbone led to a drop in performance. Thus, we decided to keep it frozen and not retrain it, but we did finetune the whole head for another 14 epochs. The plot below displays our training curves.
+
+<p align="center">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/train_loss.png" width="400">
+</p>
+
+The architecture of yolov8 and the modules' numbers are shown on the image below. 
 
 <p align="center">
 <img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/yolo_archi.png" width="400">
