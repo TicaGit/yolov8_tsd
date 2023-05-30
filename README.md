@@ -1,27 +1,32 @@
-add all raw models are in the trained_models folder
-download from https://github.com/ultralytics/assets/releases : take n,m,x
-
-all trained model on drive : put in our_retrained_models
-
-our retrained models on the BTSD dataset are in the folder our_retrained_models
-
-test that everything works on a new environment (load the right files, and not the ultralytics librairy)
-
-data in /work/vita/...
-
-use val function of yolo for evaluate performanace of models 
-
-if other data loc, change path in streamloader.py : data_dir = "/work/vita/nmuenger_trinca/annotations/"
-
-
 # YODSO : YOU ONLY DETECT SIGN ONCE
 
-### instalation:
+### Introducton:
 
+This project is part of the Deep learning for autonomous vehicule class. Each group had to solve a specific task related to autonomous driving. Our group chose the task "traffic sign detection and classification", where we have to find the bounding boxes and class labels of signs, given an image. As describe in the milestone 1, we chose to apply and finetune the model Yolov8 to this task. Yolov8 is the state-of-the-art deep learning model for object detection, develloped by ultranalytics and realease in 2023. In this document, we will explain how to obtain our results and comment them.
+
+### Instalation:
+
+All the script are designed to be run on the scitas clusters. One can connect and request ressources with the following commands:
 ```
-pip instal ...
-ultralytics
+ssh -X <gaspar_username>@izar.epfl.ch
+Sinteract  -g gpu:1 -p gpu -c 8 -m 30G -t 01:29:00 -a civil-459-2023
 ```
+
+Once on a node in the scitas clusters, one must setup the virtual environment.
+```
+virtualenv --system-site-packages <venvs_name>
+source <venvs_name>/bin/activate
+pip install ultralytics --user
+pip install thop --user
+```
+
+Then a module is required to install
+```
+module load gcc/8.4.0-cuda python/3.7.7		
+```
+
+Once all of that is done, the scripts are ready to be runned.
+Please note that the scripts exepts the available ressource to be 8 cores when running. If there is not enough ressource available, a warning will be displayed, but it should nevertheless work.
 
 
 ### Data:
@@ -35,35 +40,33 @@ For an in-depth explanation of the data format YOLO expects, please refer to thi
 There are two kinds of models. The [models](https://github.com/ultralytics/assets/releases) pretrained by the Ultralytics team on the COCO dataset (Pretrained-Ultralytics) and our models which we finetuned on the BelgiumTS dataset (42-epochs). Both kinds come with 3 different sizes : Nano, Medium and XLarge, with performances increasing with the model's size.
 Before anything, one must first download all the models from google drive (https://drive.google.com/drive/folders/1r6YhmoF5XZMKCcJ15O63RUL7nu7NAXp6?usp=sharing) and put them in the correct files. <br>
 
-The pretrained models form ultralytics must be placed in the *trained_models* folder while our finetuned models in the *our_retrained_models* folder.
+The pretrained models form ultralytics must be placed in the *trained_models* folder while our finetuned models in the *retrained_models_TS* folder.
 
-The pretrained models must first be trained with our training script in order to predict traffic signs. Our finetuned models can directly be used for inference. 
-
-
+The pretrained models must first be trained with our training script in order to predict traffic signs. Our finetuned models can directly be used for inference.
 
 ### Training:
 
 The script to retrain the network is called retrain_TS.py. One can run it with this command, specifying the model to use and the number of epochs. The model to retrain must be in the *trained_models* folder.
 ```
-python our_train.py --model yolov8m.pt --epochs 3
+python retrain_TS.py --model yolov8m.pt --epochs 3
 ```
 The newly trained model and some metrics are then stored in the *run/detect* folder.
 
 ### Inference:
 
-To infer the bounding boxes and classes of an image, we use the *our_inference.py* script. One can specify the model to use, the path to the image (wich must be in the same folder as the path specified in the .yaml file) and the file to output the predictions. An example command is provided below.
+To infer the bounding boxes and classes of an image, we use the *inference_TS.py* script. One can specify the model to use, the path to the image (wich must be in the same folder as the path specified in the .yaml file) and the file to output the predictions. An example command is provided below.
 
 ```
-python our_inference.py --model_path yolov8m_tsd_30epochs.pt --data_path images/01/image.006950.jp2 --output_file our_predictions/prediction.txt
+python inference_TS.py --model_path yolov8m_tsd_30epochs.pt --data_path images/01/image.006950.jp2 --output_file predictions_TS/prediction.txt
 ```
 
-This will create the file *prediction.txt* file in the folder *our_predictions* and store all the bounding boxes file in a csv format. The inference time on the image is also displayed.
+This will create the file *prediction.txt* file in the folder *predictions_TS* and store all the bounding boxes file in a csv format. The inference time on the image is also displayed.
 
-We also make a quick sript to infer from frames of a video and write in a json file. This sript is nammed *our_video_inference.py* and requires the frames to be place in *work/vita/nmuenger_trinca/annotations/video_frames/* folder in .png format. 
+We also made a sript names to infer from frames of a video and write in a json file. This sript is nammed *video_inference_TS.py* and requires the frames to be place in *work/vita/nmuenger_trinca/annotations/video_frames/* folder in .png format. 
 
 ### Testing:
 
-We also provide a test script to compare the performances of the models' different sizes on the whole test set. This script outputs all the results in the terminal and create a plot comparing the performances.
+We also provide a test script to compare the performances of the models' different sizes on the whole test set. This script outputs all the results in the terminal and create a plot comparing the performances. It is called *metrics_test_TS.py*.
 
 
 ### Disclaimer:
