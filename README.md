@@ -98,7 +98,7 @@ As an example, we selected an image with multiple signs to detect, and infered t
 
 Ground truth 
 <p align="center">
-<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/            /.png" width="800">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/labels_GT.png" width="800">
 </p>
 
 Inference with the Nano model 
