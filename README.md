@@ -91,7 +91,7 @@ The performance of the model on the whole test set is shown on the graph below. 
 </p>
 
 <p align="center">
-<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/size_vs_model.png" width="400">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/size_vs_model.jpeg" width="400">
 </p>
 
 As an example, we selected an image with multiple signs to detect, and infered the results with the 3 different models. We also compare the time it took to infer the prediction on this image (in milliseconds)
@@ -118,7 +118,7 @@ Inference with the Extra Large model
 
 Comparion of inference time on one image.
 <p align="center">
-<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/time_vs_model.png" width="400">
+<img src="https://github.com/TicaGit/yolov8_tsd/blob/tibo_yolo_retrain/image_read_me/time_vs_model.jpeg" width="400">
 </p>
 
 ### Table with the class names 
