@@ -2,9 +2,10 @@
 
 ### Introducton:
 
-This project is part of the Deep Learning for Autonomous Vehicles class. Each group had to solve a specific task related to autonomous driving. Our group chose the task "traffic sign detection and classification", where we the goal is to find the bounding boxes and class labels of signs, given an image. We chose to apply and finetune the model Yolov8 to do this task. Yolov8 is the state-of-the-art deep learning model for object detection, developed by [Ultralytics](https://docs.ultralytics.com/) and released in 2023. In this Readme, we explain the steps to obtain our inferences and comment our results.
+This project is part of the Deep Learning for Autonomous Vehicles class. Each group had to solve a specific task related to autonomous driving. Our group chose the task "traffic sign detection and classification", where we the goal is to find the bounding boxes and class labels of signs, given an image. <br>
+We are proud to introduce to the community YODSO (You Only Detect Sign Once). It is an implementation and finetuning of the model Yolov8. Yolov8 is the state-of-the-art deep learning model for object detection, developed by [Ultralytics](https://docs.ultralytics.com/) and released in 2023. In this Readme, we explain the steps to obtain our inferences and comment our results.
 
-### Instalation:
+### Installation:
 
 All the script are designed to be run on the SCITAS clusters. One can connect and request ressources with the following commands:
 ```
